@@ -1,0 +1,49 @@
+<svg width="1200" height="820" viewBox="0 0 1200 820" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="820" rx="36" fill="#F7FAF4"/>
+  <rect x="40" y="40" width="1120" height="740" rx="30" fill="url(#bg)"/>
+  <circle cx="842" cy="320" r="172" fill="url(#glow)"/>
+  <circle cx="844" cy="320" r="126" fill="url(#planet)"/>
+  <ellipse cx="844" cy="320" rx="220" ry="68" stroke="#D8F1FF" stroke-width="6"/>
+  <ellipse cx="844" cy="320" rx="178" ry="150" transform="rotate(-26 844 320)" stroke="url(#orbit)" stroke-width="3"/>
+  <ellipse cx="844" cy="320" rx="178" ry="150" transform="rotate(24 844 320)" stroke="url(#orbit2)" stroke-width="3"/>
+  <rect x="120" y="126" width="330" height="116" rx="30" fill="white" stroke="#DDE8D4"/>
+  <rect x="152" y="158" width="126" height="12" rx="6" fill="#1CBC43"/>
+  <rect x="152" y="186" width="214" height="14" rx="7" fill="#0D1A2C"/>
+  <rect x="152" y="212" width="170" height="10" rx="5" fill="#6786A2"/>
+  <rect x="120" y="278" width="420" height="226" rx="30" fill="#07111F"/>
+  <rect x="152" y="314" width="138" height="12" rx="6" fill="#55ED71"/>
+  <rect x="152" y="344" width="256" height="18" rx="9" fill="#F7FAF4"/>
+  <rect x="152" y="378" width="212" height="18" rx="9" fill="#F7FAF4" fill-opacity="0.8"/>
+  <path d="M152 456H508" stroke="#213A58" stroke-width="3" stroke-linecap="round"/>
+  <path d="M172 450L236 414L290 430L356 374L424 392L488 344" stroke="url(#line)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="664" y="550" width="372" height="132" rx="30" fill="white" stroke="#D8F1FF"/>
+  <rect x="700" y="586" width="120" height="12" rx="6" fill="#34A8FF"/>
+  <rect x="700" y="618" width="226" height="16" rx="8" fill="#0D1A2C"/>
+  <rect x="700" y="646" width="186" height="10" rx="5" fill="#6786A2"/>
+  <defs>
+    <linearGradient id="bg" x1="92" y1="76" x2="1094" y2="736" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7FAF4"/>
+      <stop offset="1" stop-color="#EEF9FF"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(842 320) rotate(90) scale(172)">
+      <stop stop-color="#55ED71" stop-opacity="0.36"/>
+      <stop offset="1" stop-color="#34A8FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="planet" x1="750" y1="196" x2="924" y2="438" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D8F1FF"/>
+      <stop offset="1" stop-color="#2454C0"/>
+    </linearGradient>
+    <linearGradient id="orbit" x1="660" y1="320" x2="1028" y2="320" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#55ED71"/>
+      <stop offset="1" stop-color="#34A8FF"/>
+    </linearGradient>
+    <linearGradient id="orbit2" x1="660" y1="320" x2="1028" y2="320" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7FAF4"/>
+      <stop offset="1" stop-color="#34A8FF"/>
+    </linearGradient>
+    <linearGradient id="line" x1="172" y1="392" x2="488" y2="392" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#55ED71"/>
+      <stop offset="1" stop-color="#34A8FF"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -1,0 +1,35 @@
+<svg width="1200" height="820" viewBox="0 0 1200 820" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="820" rx="36" fill="#07111F"/>
+  <rect x="42" y="42" width="1116" height="736" rx="30" fill="url(#bg)"/>
+  <rect x="104" y="118" width="992" height="248" rx="34" fill="#0F2037"/>
+  <circle cx="300" cy="232" r="64" fill="#1CBC43"/>
+  <circle cx="300" cy="204" r="28" fill="#F7FAF4"/>
+  <rect x="248" y="236" width="104" height="78" rx="32" fill="#F7FAF4"/>
+  <circle cx="600" cy="232" r="64" fill="#34A8FF"/>
+  <circle cx="600" cy="204" r="28" fill="#F7FAF4"/>
+  <rect x="548" y="236" width="104" height="78" rx="32" fill="#F7FAF4"/>
+  <circle cx="900" cy="232" r="64" fill="#C7FBDA"/>
+  <circle cx="900" cy="204" r="28" fill="#07111F"/>
+  <rect x="848" y="236" width="104" height="78" rx="32" fill="#07111F"/>
+  <rect x="148" y="446" width="404" height="218" rx="32" fill="white" stroke="#DDE8D4"/>
+  <rect x="188" y="492" width="132" height="12" rx="6" fill="#1CBC43"/>
+  <rect x="188" y="526" width="234" height="18" rx="9" fill="#07111F"/>
+  <rect x="188" y="560" width="198" height="10" rx="5" fill="#6786A2"/>
+  <rect x="648" y="446" width="404" height="218" rx="32" fill="white" stroke="#D8F1FF"/>
+  <path d="M700 602L764 548L818 566L884 498L956 526" stroke="url(#line)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="700" cy="602" r="11" fill="#55ED71"/>
+  <circle cx="764" cy="548" r="11" fill="#77F3A7"/>
+  <circle cx="818" cy="566" r="11" fill="#34A8FF"/>
+  <circle cx="884" cy="498" r="11" fill="#2454C0"/>
+  <circle cx="956" cy="526" r="11" fill="#07111F"/>
+  <defs>
+    <linearGradient id="bg" x1="88" y1="72" x2="1104" y2="744" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#07111F"/>
+      <stop offset="1" stop-color="#102038"/>
+    </linearGradient>
+    <linearGradient id="line" x1="700" y1="548" x2="956" y2="548" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#55ED71"/>
+      <stop offset="1" stop-color="#34A8FF"/>
+    </linearGradient>
+  </defs>
+</svg>
