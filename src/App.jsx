@@ -3,7 +3,6 @@ import Layout from './components/Layout';
 import AdminLayout from './components/admin/AdminLayout';
 import AdminProtectedRoute from './components/admin/AdminProtectedRoute';
 import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
 import ServicesPage from './pages/ServicesPage';
 import ContactPage from './pages/ContactPage';
 import CareersPage from './pages/CareersPage';
@@ -18,7 +17,7 @@ function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/about-us" element={<AboutPage />} />
+        <Route path="/about-us" element={<HomePage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/contact-us" element={<ContactPage />} />
         <Route path="/careers" element={<CareersPage />} />

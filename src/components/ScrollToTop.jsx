@@ -5,6 +5,10 @@ function ScrollToTop() {
   const location = useLocation();
 
   useEffect(() => {
+    if (location.pathname === '/about-us') {
+      return;
+    }
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.pathname]);
 

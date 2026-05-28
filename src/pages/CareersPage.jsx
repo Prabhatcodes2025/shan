@@ -111,8 +111,10 @@ function CareersPage() {
   const [selectedRole, setSelectedRole] = useState(null);
   const [applicationForm, setApplicationForm] = useState(emptyApplicationForm);
   const [applicationErrors, setApplicationErrors] = useState({});
+  const [isLocationMenuOpen, setIsLocationMenuOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const dialogRef = useRef(null);
+  const locationMenuRef = useRef(null);
 
   usePageMeta('Careers');
 
@@ -154,12 +156,39 @@ function CareersPage() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isLocationMenuOpen) {
+      return undefined;
+    }
+
+    const handlePointerDown = (event) => {
+      if (!locationMenuRef.current?.contains(event.target)) {
+        setIsLocationMenuOpen(false);
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setIsLocationMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isLocationMenuOpen]);
+
   const handleOpenApplicationForm = (role, event) => {
     event?.preventDefault();
     event?.stopPropagation();
     event?.currentTarget?.blur();
 
     setSelectedRole(role);
+    setIsLocationMenuOpen(false);
     setSuccessMessage('');
     setApplicationForm({ ...emptyApplicationForm });
     setApplicationErrors({});
@@ -168,11 +197,10 @@ function CareersPage() {
   const handleCloseApplicationForm = () => {
     setSelectedRole(null);
     setApplicationErrors({});
+    setIsLocationMenuOpen(false);
   };
 
-  const handleApplicationChange = (event) => {
-    const { name, value } = event.target;
-
+  const updateApplicationField = (name, value) => {
     setApplicationForm((currentState) => ({
       ...currentState,
       [name]: value,
@@ -188,6 +216,11 @@ function CareersPage() {
         [name]: '',
       };
     });
+  };
+
+  const handleApplicationChange = (event) => {
+    const { name, value } = event.target;
+    updateApplicationField(name, value);
   };
 
   const handleApplicationSubmit = (event) => {
@@ -212,6 +245,7 @@ function CareersPage() {
     setSuccessMessage(
       `Your application for ${selectedRole.title} is ready. Your email app should open with all details prefilled so you can review and send it.`,
     );
+    setIsLocationMenuOpen(false);
     setApplicationForm({ ...emptyApplicationForm });
     setApplicationErrors({});
     setSelectedRole(null);
@@ -431,22 +465,85 @@ function CareersPage() {
                         )}
                       </label>
 
-                      <label className="grid gap-1.5 text-[13px] font-medium text-slate-200">
+                      <div className="grid gap-1.5 text-[13px] font-medium text-slate-200">
                         <span>Current Location</span>
-                        <select
-                          name="currentLocation"
-                          value={applicationForm.currentLocation}
-                          onChange={handleApplicationChange}
-                          className="glass-field appearance-none py-2.5 text-sm"
-                        >
-                          <option value="">Select your current location</option>
-                          {currentLocationOptions.map((location) => (
-                            <option key={location} value={location}>
-                              {location}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
+                        <div ref={locationMenuRef} className="relative">
+                          <button
+                            type="button"
+                            onClick={() => setIsLocationMenuOpen((currentValue) => !currentValue)}
+                            className="glass-field flex w-full items-center justify-between gap-3 py-2.5 text-left text-sm"
+                            aria-expanded={isLocationMenuOpen}
+                            aria-haspopup="listbox"
+                          >
+                            <span
+                              className={
+                                applicationForm.currentLocation
+                                  ? 'truncate text-slate-100'
+                                  : 'truncate text-slate-400'
+                              }
+                            >
+                              {applicationForm.currentLocation || 'Select your current location'}
+                            </span>
+                            <svg
+                              viewBox="0 0 20 20"
+                              className={`h-4 w-4 shrink-0 text-slate-300 transition ${isLocationMenuOpen ? 'rotate-180' : ''}`}
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.8"
+                              aria-hidden="true"
+                            >
+                              <path
+                                d="M5 7.5 10 12.5 15 7.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </button>
+
+                          {isLocationMenuOpen ? (
+                            <div className="absolute left-0 right-0 top-[calc(100%+0.45rem)] z-30 overflow-hidden rounded-[20px] border border-white/10 bg-[#08131f] shadow-[0_24px_54px_-24px_rgba(0,0,0,0.82)]">
+                              <div className="max-h-64 overflow-y-auto p-2">
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    updateApplicationField('currentLocation', '');
+                                    setIsLocationMenuOpen(false);
+                                  }}
+                                  className={`flex w-full items-center rounded-2xl px-3 py-2.5 text-left text-sm transition ${
+                                    !applicationForm.currentLocation
+                                      ? 'bg-white/[0.08] text-white'
+                                      : 'text-slate-300 hover:bg-white/[0.05] hover:text-white'
+                                  }`}
+                                  role="option"
+                                  aria-selected={!applicationForm.currentLocation}
+                                >
+                                  Select your current location
+                                </button>
+
+                                {currentLocationOptions.map((location) => (
+                                  <button
+                                    key={location}
+                                    type="button"
+                                    onClick={() => {
+                                      updateApplicationField('currentLocation', location);
+                                      setIsLocationMenuOpen(false);
+                                    }}
+                                    className={`flex w-full items-center rounded-2xl px-3 py-2.5 text-left text-sm transition ${
+                                      applicationForm.currentLocation === location
+                                        ? 'bg-sky-400/18 text-white'
+                                        : 'text-slate-300 hover:bg-white/[0.05] hover:text-white'
+                                    }`}
+                                    role="option"
+                                    aria-selected={applicationForm.currentLocation === location}
+                                  >
+                                    {location}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          ) : null}
+                        </div>
+                      </div>
                     </div>
 
                     <label className="grid gap-1.5 text-[13px] font-medium text-slate-200">
