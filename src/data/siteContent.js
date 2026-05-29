@@ -16,7 +16,7 @@ export const company = {
   heroStatement: 'Clear language support for growing teams.',
   contact: {
     email: 'info@shanglobalisation.com',
-    phone: '+97299 68734',
+    phone: '+91 97299 68734',
     office: 'Client coordination available across global time zones',
     hours: 'Monday to Saturday, 9:00 AM to 6:30 PM IST',
   },

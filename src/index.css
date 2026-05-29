@@ -22,6 +22,7 @@
   html {
     scroll-behavior: smooth;
     background-color: #040a12;
+    overflow-x: hidden;
   }
 
   body {
@@ -33,6 +34,7 @@
       radial-gradient(circle at 50% 100%, rgba(102, 255, 0, 0.1), transparent 34%),
       linear-gradient(180deg, #040a12 0%, #07111f 42%, #0b1524 100%);
     background-attachment: fixed;
+    overflow-x: hidden;
   }
 
   ::selection {
@@ -78,11 +80,11 @@
   }
 
   .container-shell {
-    @apply mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-10;
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-10;
   }
 
   .site-footer {
-    @apply relative w-screen overflow-hidden px-6 py-24 text-white sm:px-8 lg:px-10;
+    @apply relative w-screen max-w-[100vw] overflow-hidden px-4 py-16 text-white sm:px-8 sm:py-24 lg:px-10;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
     background:
@@ -155,6 +157,7 @@
 
   .glass-panel {
     @apply relative overflow-hidden rounded-[28px] border border-white/10 backdrop-blur-2xl;
+    min-width: 0;
     background:
       linear-gradient(145deg, rgba(10, 21, 37, 0.92), rgba(8, 17, 31, 0.84)),
       linear-gradient(160deg, rgba(123, 244, 144, 0.1), transparent 42%);
@@ -178,6 +181,7 @@
 
   .spotlight-border {
     @apply relative overflow-hidden rounded-[28px] border border-white/10 backdrop-blur-2xl;
+    min-width: 0;
     background:
       linear-gradient(145deg, rgba(10, 21, 37, 0.92), rgba(8, 17, 31, 0.82)),
       linear-gradient(160deg, rgba(123, 244, 144, 0.12), transparent 46%);
@@ -252,11 +256,11 @@
   }
 
   .page-frame {
-    @apply pb-24 pt-16 sm:pt-20;
+    @apply pb-16 pt-12 sm:pb-24 sm:pt-20;
   }
 
   .home-hero {
-    @apply relative flex min-h-screen w-screen overflow-hidden bg-cover bg-center px-6 pb-24 pt-52 sm:px-8 lg:px-10;
+    @apply relative flex min-h-screen w-screen max-w-[100vw] overflow-hidden bg-cover bg-center px-4 pb-20 pt-44 sm:px-8 sm:pb-24 sm:pt-52 lg:px-10;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
     margin-top: -12rem;
@@ -303,7 +307,7 @@
   }
 
   .careers-hero {
-    @apply relative flex min-h-[72vh] w-screen overflow-hidden bg-cover px-6 pb-20 pt-52 sm:px-8 lg:px-10;
+    @apply relative flex min-h-[64vh] w-screen max-w-[100vw] overflow-hidden bg-cover px-4 pb-16 pt-44 sm:min-h-[72vh] sm:px-8 sm:pb-20 sm:pt-52 lg:px-10;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
     margin-top: -12rem;
@@ -328,7 +332,7 @@
   }
 
   .announcement-hero {
-    @apply relative flex min-h-[72vh] w-screen overflow-hidden bg-cover px-6 pb-20 pt-52 sm:px-8 lg:px-10;
+    @apply relative flex min-h-[64vh] w-screen max-w-[100vw] overflow-hidden bg-cover px-4 pb-16 pt-44 sm:min-h-[72vh] sm:px-8 sm:pb-20 sm:pt-52 lg:px-10;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
     margin-top: -12rem;
@@ -353,7 +357,7 @@
   }
 
   .contact-hero {
-    @apply relative flex min-h-[72vh] w-screen overflow-hidden bg-cover px-6 pb-20 pt-52 sm:px-8 lg:px-10;
+    @apply relative flex min-h-[64vh] w-screen max-w-[100vw] overflow-hidden bg-cover px-4 pb-16 pt-44 sm:min-h-[72vh] sm:px-8 sm:pb-20 sm:pt-52 lg:px-10;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
     margin-top: -12rem;
@@ -375,6 +379,7 @@
 
   .section-surface {
     @apply relative overflow-hidden rounded-[32px] border border-white/10 px-6 py-10 backdrop-blur-2xl sm:px-8 sm:py-12;
+    min-width: 0;
     background:
       radial-gradient(circle at top left, rgba(52, 168, 255, 0.1), transparent 30%),
       linear-gradient(155deg, rgba(10, 20, 33, 0.94), rgba(8, 16, 28, 0.88));
@@ -400,7 +405,7 @@
   }
 
   .services-band {
-    @apply relative w-screen overflow-hidden px-6 py-20 sm:px-8 lg:px-10;
+    @apply relative w-screen max-w-[100vw] overflow-hidden px-4 py-16 sm:px-8 sm:py-20 lg:px-10;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
     background:
@@ -425,7 +430,7 @@
   }
 
   .about-company {
-    @apply w-screen bg-white px-6 py-20 text-black sm:px-8 lg:px-10;
+    @apply w-screen max-w-[100vw] bg-white px-4 py-16 text-black sm:px-8 sm:py-20 lg:px-10;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
     scroll-margin-top: 7rem;
@@ -466,13 +471,13 @@
   }
 
   .services-page {
-    @apply w-screen text-black;
+    @apply w-screen max-w-[100vw] text-black;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
   }
 
   .services-page-hero {
-    @apply relative flex min-h-[58vh] overflow-hidden bg-cover bg-center px-6 pb-16 pt-44 sm:px-8 lg:px-10;
+    @apply relative flex min-h-[54vh] overflow-hidden bg-cover bg-center px-4 pb-14 pt-40 sm:min-h-[58vh] sm:px-8 sm:pb-16 sm:pt-44 lg:px-10;
     margin-top: -12rem;
   }
 
@@ -496,7 +501,7 @@
   }
 
   .services-card-section {
-    @apply bg-white px-6 py-24 sm:px-8 lg:px-10;
+    @apply bg-white px-4 py-16 sm:px-8 sm:py-24 lg:px-10;
   }
 
   .services-card-grid {
@@ -581,7 +586,7 @@
   }
 
   .services-detail-section {
-    @apply px-6 py-20 sm:px-8 lg:px-10;
+    @apply px-4 py-16 sm:px-8 sm:py-20 lg:px-10;
   }
 
   .services-detail-section-mint {
@@ -633,7 +638,7 @@
   }
 
   .services-cta {
-    @apply relative overflow-hidden px-6 py-24 text-center sm:px-8 lg:px-10;
+    @apply relative overflow-hidden px-4 py-16 text-center sm:px-8 sm:py-24 lg:px-10;
     background: linear-gradient(180deg, #c3ddf4 0%, #edf5fd 72%, #ffffff 100%);
   }
 
@@ -692,7 +697,7 @@
   }
 
   .choose-section {
-    @apply relative w-screen overflow-hidden px-6 py-24 sm:px-8 lg:px-10;
+    @apply relative w-screen max-w-[100vw] overflow-hidden px-4 py-16 sm:px-8 sm:py-24 lg:px-10;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
     background:
@@ -815,7 +820,7 @@
   }
 
   .brand-services-section {
-    @apply w-screen bg-black px-6 py-24 sm:px-8 lg:px-10;
+    @apply w-screen max-w-[100vw] bg-black px-4 py-16 sm:px-8 sm:py-24 lg:px-10;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
   }
@@ -870,7 +875,7 @@
   }
 
   .cta-band {
-    @apply relative w-screen overflow-hidden px-6 py-24 text-black sm:px-8 lg:px-10;
+    @apply relative w-screen max-w-[100vw] overflow-hidden px-4 py-16 text-black sm:px-8 sm:py-24 lg:px-10;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
     background:
@@ -987,7 +992,7 @@
   }
 
   .services-carousel {
-    @apply relative w-screen overflow-hidden py-2;
+    @apply relative w-screen max-w-[100vw] overflow-hidden py-2;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
   }
@@ -1255,7 +1260,7 @@
   }
 
   .glass-field {
-    @apply rounded-2xl border border-white/10 px-4 py-3 text-slate-100 outline-none transition backdrop-blur-xl;
+    @apply w-full rounded-2xl border border-white/10 px-4 py-3 text-slate-100 outline-none transition backdrop-blur-xl;
     background:
       linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03)),
       linear-gradient(145deg, rgba(123, 244, 144, 0.08), transparent 60%);
@@ -1364,6 +1369,101 @@
   .careers-application-dialog::backdrop {
     background: rgba(4, 10, 18, 0.84);
     backdrop-filter: blur(14px);
+  }
+
+  .site-shell,
+  .container-shell,
+  .page-frame,
+  .glass-panel,
+  .spotlight-border,
+  .section-surface,
+  .minimal-card,
+  .hero-soft-card,
+  .admin-card {
+    min-width: 0;
+  }
+
+  .glass-panel a,
+  .site-footer a,
+  .minimal-card a,
+  .section-surface a {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 639px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  .site-shell::after {
+    display: none;
+  }
+
+  .site-footer {
+    @apply px-4 py-16;
+  }
+
+  .eyebrow {
+    @apply max-w-full px-3 py-2 text-[10px] tracking-[0.22em];
+  }
+
+  .section-title {
+    @apply text-3xl leading-tight;
+  }
+
+  .section-copy {
+    @apply text-sm leading-7;
+  }
+
+  .page-hero,
+  .glass-panel,
+  .spotlight-border,
+  .section-surface,
+  .hero-showcase,
+  .tech-stage,
+  .media-card {
+    border-radius: 22px;
+  }
+
+  .page-hero {
+    @apply px-4 py-10;
+  }
+
+  .section-surface {
+    @apply px-4 py-8;
+  }
+
+  .home-hero,
+  .careers-hero,
+  .announcement-hero,
+  .contact-hero,
+  .services-page-hero {
+    margin-top: -10.5rem;
+  }
+
+  .services-page-hero h1 {
+    @apply text-5xl;
+  }
+
+  .services-feature-card {
+    @apply min-h-[260px] p-6;
+  }
+
+  .services-feature-card h2,
+  .services-cta h2 {
+    @apply text-3xl;
+  }
+
+  .services-cta span {
+    @apply text-base leading-7;
+  }
+
+  .services-cta a,
+  .btn-primary,
+  .btn-secondary {
+    @apply w-full px-5 text-center;
   }
 }
 
