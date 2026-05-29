@@ -9,13 +9,20 @@ const socialLinks = [
   { label: 'YouTube', href: '#', icon: 'youtube' },
 ];
 
+const complianceItems = [
+  'ISO 9001 Certified',
+  'ISO/IEC 27001 Certified',
+  'Privacy Policy',
+  'NDA Compliance',
+];
+
 function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="site-footer">
       <div className="site-footer-inner">
-        <div className="grid gap-10 lg:grid-cols-[1.2fr,0.8fr,0.9fr]">
+        <div className="grid gap-10 lg:grid-cols-[1.25fr,0.65fr,0.85fr,0.9fr]">
           <div className="space-y-4">
             <BrandMark />
             <p className="max-w-md text-sm leading-7 text-slate-100">{company.description}</p>
@@ -63,6 +70,20 @@ function Footer() {
                 </a>
               </p>
               <p>{company.contact.hours}</p>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white">Compliance</p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {complianceItems.map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-slate-100"
+                >
+                  {item}
+                </span>
+              ))}
             </div>
           </div>
         </div>

@@ -372,10 +372,10 @@ function CareersPage() {
             <div className="space-y-5">
               <span className="eyebrow">Careers</span>
               <div className="space-y-4">
-                <h1 className="max-w-none font-display text-5xl font-semibold leading-[0.95] text-white sm:text-6xl lg:whitespace-nowrap lg:text-7xl">
+                <h1 className="max-w-5xl text-balance font-display text-5xl font-semibold leading-[0.98] text-white sm:text-6xl lg:text-7xl">
                   {careersContent.heroTitle}
                 </h1>
-                <p className="max-w-none text-sm leading-7 text-slate-200 sm:text-lg lg:whitespace-nowrap">
+                <p className="max-w-2xl text-sm leading-7 text-slate-200 sm:text-lg">
                   {careersContent.heroDescription}
                 </p>
               </div>

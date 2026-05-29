@@ -111,7 +111,7 @@ values (
       }
     ],
     "careers": {
-      "heroTitle": "oin Our Global AI Operations TeamWork on AI & Multilingual Projects Remote AI & Language Opportunities.",
+      "heroTitle": "Join Our Global AI Operations Team",
       "heroDescription": "Work across translation, QA, and AI data projects.",
       "workingStyle": "We value clarity, ownership, and steady execution.",
       "growthEyebrow": "Growth",

@@ -21,11 +21,17 @@ const cloneRoles = (items) =>
 
 const isRecord = (value) => value !== null && typeof value === 'object' && !Array.isArray(value);
 
+const DEFAULT_CAREERS_HERO_TITLE = 'Join Our Global AI Operations Team';
+const LEGACY_BROKEN_CAREERS_HERO_TITLES = new Set([
+  'Join Our Global AI Operations TeamWork on AI & Multilingual Projects Remote AI & Language Opportunities.',
+  'oin Our Global AI Operations TeamWork on AI & Multilingual Projects Remote AI & Language Opportunities.',
+]);
+
 export function createDefaultManagedContent() {
   return {
     announcements: cloneAnnouncements(announcements),
     careers: {
-      heroTitle: 'Join a team building multilingual operations.',
+      heroTitle: DEFAULT_CAREERS_HERO_TITLE,
       heroDescription: 'Work across translation, QA, and AI data projects.',
       workingStyle: 'We value clarity, ownership, and steady execution.',
       growthEyebrow: 'Growth',
@@ -54,6 +60,9 @@ export function normalizeManagedContent(storedContent) {
     careers: {
       ...defaults.careers,
       ...careers,
+      heroTitle: LEGACY_BROKEN_CAREERS_HERO_TITLES.has(careers.heroTitle)
+        ? defaults.careers.heroTitle
+        : careers.heroTitle || defaults.careers.heroTitle,
       benefits: Array.isArray(careers.benefits)
         ? careers.benefits.filter((item) => typeof item === 'string' && item.trim())
         : defaults.careers.benefits,

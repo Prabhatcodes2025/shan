@@ -97,9 +97,9 @@ function HomePage() {
             <span className="eyebrow">Built for global teams</span>
 
             <div className="space-y-4">
-              <h1 className="max-w-[12ch] text-[clamp(2.8rem,5.8vw,5.8rem)] font-semibold leading-[0.95] text-white">
+              <h2 className="max-w-[14ch] text-[clamp(2.35rem,4.4vw,4.65rem)] font-semibold leading-[1.04] text-white">
                 Translation & Localization Services
-              </h1>
+              </h2>
               <p className="max-w-xl text-base font-semibold leading-8 text-white sm:text-lg">
                 Shan Globalization: Your one-stop AI/ML data partner
               </p>
@@ -257,7 +257,7 @@ function HomePage() {
           <div className="choose-title-block">
             <p className="text-sm font-semibold uppercase text-white">Why shan globalization</p>
             <h2>Choosing Shan Globalization for language solutions can be your best decision</h2>
-            <div className="choose-zigzag" aria-hidden="true" />
+            {/* <div className="choose-zigzag" aria-hidden="true" /> */}
           </div>
 
           {chooseReasons.map((reason) => (

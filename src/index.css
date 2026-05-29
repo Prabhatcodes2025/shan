@@ -748,7 +748,7 @@
   }
 
   .choose-title-block h2 {
-    @apply mt-6 max-w-xl text-[2.15rem] font-bold leading-[1.1] text-white sm:text-[2.35rem] lg:text-[2.55rem];
+    @apply mt-6 max-w-xl text-[2.15rem] font-bold leading-[1.1] text-white sm:text-[2rem] lg:text-[2.3rem];
   }
 
   .choose-zigzag {
