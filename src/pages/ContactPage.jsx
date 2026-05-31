@@ -3,7 +3,7 @@ import usePageMeta from '../hooks/usePageMeta';
 import contactHeroBg from '../assets/contact-hero-bg.jpg';
 import { company, contactReasons } from '../data/siteContent';
 
-const officeLocation = 'Loni, Ghaziabad, Uttar Pradesh 201102, India';
+const officeLocation = company.contact.office;
 
 const contactCards = [
   {
@@ -114,7 +114,14 @@ function ContactPage() {
                   <input type="tel" placeholder="+91 00000 00000" autoComplete="tel" />
                 </label>
                 <label>
-                  <span>Service Required</span>
+                  <span>Company Name <em>Optional</em></span>
+                  <input type="text" placeholder="Company or organization" autoComplete="organization" />
+                </label>
+              </div>
+
+              <div className="grid gap-5 sm:grid-cols-2">
+                <label>
+                  <span>Reason for Contacting</span>
                   <select defaultValue={contactReasons[0]}>
                     {contactReasons.map((reason) => (
                       <option key={reason}>{reason}</option>

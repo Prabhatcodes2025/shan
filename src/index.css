@@ -516,6 +516,10 @@
     @apply text-sm;
   }
 
+  .contact-reference-form label em {
+    @apply ml-1 text-xs font-medium not-italic text-slate-400;
+  }
+
   .contact-reference-form input,
   .contact-reference-form select,
   .contact-reference-form textarea {
@@ -902,17 +906,14 @@
   }
 
   .services-feature-card > svg path,
-  .services-feature-card > svg circle {
+  .services-feature-card > svg circle,
+  .services-feature-card > svg rect,
+  .services-feature-card > svg ellipse {
     fill: none;
     stroke: currentColor;
     stroke-width: 3.2;
     stroke-linecap: round;
     stroke-linejoin: round;
-  }
-
-  .services-feature-card > svg path:last-of-type,
-  .services-feature-card > svg circle {
-    fill: currentColor;
   }
 
   .services-feature-card h2 {
@@ -933,7 +934,7 @@
   }
 
   .services-detail-section {
-    @apply px-4 py-16 sm:px-8 sm:py-20 lg:px-10;
+    @apply px-4 py-12 sm:px-8 sm:py-14 lg:px-10;
   }
 
   .services-detail-section-mint {
@@ -949,15 +950,15 @@
   }
 
   .services-detail-inner h2 {
-    @apply mx-auto max-w-5xl text-4xl font-bold leading-tight text-black sm:text-5xl;
+    @apply mx-auto max-w-5xl text-4xl font-bold leading-tight text-black sm:text-[2.65rem];
   }
 
   .services-detail-lead {
-    @apply mx-auto mt-7 max-w-6xl text-base font-medium leading-7 text-black sm:text-lg;
+    @apply mx-auto mt-5 max-w-6xl text-base font-medium leading-7 text-black;
   }
 
   .services-detail-list {
-    @apply mx-auto mt-12 grid max-w-7xl gap-x-10 gap-y-4 text-left sm:grid-cols-2 lg:grid-cols-5;
+    @apply mx-auto mt-9 grid max-w-6xl gap-x-8 gap-y-3 text-left sm:grid-cols-2 lg:grid-cols-5;
   }
 
   .services-detail-list li {
@@ -981,7 +982,7 @@
   }
 
   .services-detail-close {
-    @apply mx-auto mt-10 max-w-5xl text-base font-medium leading-7 text-black sm:text-lg;
+    @apply mx-auto mt-8 max-w-6xl text-base font-medium leading-7 text-black;
   }
 
   .services-cta {
@@ -1825,6 +1826,22 @@
   .services-feature-card h2,
   .services-cta h2 {
     @apply text-3xl;
+  }
+
+  .services-detail-section {
+    @apply py-12;
+  }
+
+  .services-detail-inner h2 {
+    @apply text-3xl;
+  }
+
+  .services-detail-list {
+    @apply mt-8 gap-y-3;
+  }
+
+  .services-detail-close {
+    @apply mt-8;
   }
 
   .services-cta span {

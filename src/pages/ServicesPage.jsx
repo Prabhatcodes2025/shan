@@ -5,31 +5,37 @@ import servicesHeroBg from '../assets/services-hero-bg.jpg';
 const serviceCards = [
   {
     title: 'Translation',
+    icon: 'broadcast',
     copy:
       'We provide accurate multilingual translation and professional audio/video transcription services with fast delivery, quality formatting, and reliable solutions for business, media, research, and AI projects.',
   },
   {
     title: 'Transcription',
+    icon: 'message',
     copy:
       'We provide accurate multilingual translation and professional audio/video transcription services with fast delivery, quality formatting, and reliable solutions for business, media, research, and AI projects.',
   },
   {
     title: 'Data Collection',
+    icon: 'database',
     copy:
       'We offer reliable large-scale data collection services including text, image, audio, video, and web datasets designed for AI training, machine learning, analytics, and research purposes.',
   },
   {
     title: 'Search Engine Evaluation & Rating',
+    icon: 'search',
     copy:
       'We provide professional evaluation and rating services for search results, ads, maps, apps, websites, online content, and AI-generated responses to improve relevance, accuracy, quality, and user experience.',
   },
   {
     title: 'AI Training & Quality Analysis',
+    icon: 'bot',
     copy:
       'We deliver AI data preparation, validation, quality analysis, and model evaluation services to improve machine learning accuracy, performance, reliability, and overall AI system efficiency.',
   },
   {
     title: 'Annotation',
+    icon: 'annotation',
     copy:
       'Our expert team provides precise image, video, text, and audio annotation services including labeling, segmentation, polygon annotation, bounding boxes, and AI training data preparation.',
   },
@@ -140,7 +146,7 @@ function ServicesPage() {
         <div className="services-card-grid">
           {serviceCards.map((service) => (
             <article key={service.title} className="services-feature-card">
-              <ServiceSignalIcon />
+              <ServiceIcon kind={service.icon} />
               <h2>{service.title}</h2>
               <p>{service.copy}</p>
             </article>
@@ -185,7 +191,71 @@ function ServicesPage() {
   );
 }
 
-function ServiceSignalIcon() {
+function ServiceIcon({ kind }) {
+  if (kind === 'message') {
+    return (
+      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <rect x="12" y="10" width="24" height="20" rx="4" />
+        <path d="M18 17h12" />
+        <path d="M18 23h7" />
+        <path d="M20 30 16 38l10-8" />
+        <circle cx="32" cy="31" r="6" />
+        <path d="m29.5 31 1.8 1.8 3.4-4" />
+      </svg>
+    );
+  }
+
+  if (kind === 'database') {
+    return (
+      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <ellipse cx="24" cy="12" rx="14" ry="6" />
+        <path d="M10 12v10c0 3.3 6.3 6 14 6s14-2.7 14-6V12" />
+        <path d="M10 22v10c0 3.3 6.3 6 14 6s14-2.7 14-6V22" />
+        <path d="M17 22h.01" />
+        <path d="M17 32h.01" />
+      </svg>
+    );
+  }
+
+  if (kind === 'search') {
+    return (
+      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <circle cx="21" cy="21" r="11" />
+        <path d="m30 30 8 8" />
+        <path d="M16 21h10" />
+        <path d="M21 16v10" />
+        <path d="M33 13h6" />
+        <path d="M36 10v6" />
+      </svg>
+    );
+  }
+
+  if (kind === 'bot') {
+    return (
+      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <rect x="12" y="16" width="24" height="20" rx="5" />
+        <path d="M24 16V9" />
+        <circle cx="24" cy="7" r="2" />
+        <path d="M18 25h.01" />
+        <path d="M30 25h.01" />
+        <path d="M19 31h10" />
+        <path d="M8 24h4" />
+        <path d="M36 24h4" />
+      </svg>
+    );
+  }
+
+  if (kind === 'annotation') {
+    return (
+      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <path d="M13 35h8l18-18a5.7 5.7 0 0 0-8-8L13 27v8Z" />
+        <path d="m28 12 8 8" />
+        <path d="M12 39h25" />
+        <path d="M14 27h7v7" />
+      </svg>
+    );
+  }
+
   return (
     <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
       <path d="M14 21a10 10 0 0 1 20 0" />

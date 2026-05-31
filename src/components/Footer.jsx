@@ -5,7 +5,7 @@ import { company, navigation } from '../data/siteContent';
 const socialLinks = [
   { label: 'Instagram', href: '#', icon: 'instagram' },
   { label: 'Facebook', href: '#', icon: 'facebook' },
-  { label: 'LinkedIn', href: '#', icon: 'linkedin' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/shan-globalization/', icon: 'linkedin' },
   { label: 'YouTube', href: '#', icon: 'youtube' },
 ];
 
@@ -30,7 +30,7 @@ function Footer() {
               {socialLinks.map((item) => (
                 <a
                   key={item.label}
-                  href={item.href}
+                  href={item.href}socialLinks
                   aria-label={item.label}
                   title={item.label}
                   className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-transparent text-white transition hover:-translate-y-0.5 hover:border-forest-300 hover:text-forest-300"
@@ -69,6 +69,7 @@ function Footer() {
                   {company.contact.phone}
                 </a>
               </p>
+              <p>{company.contact.office}</p>
               <p>{company.contact.hours}</p>
             </div>
           </div>

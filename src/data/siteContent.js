@@ -17,7 +17,7 @@ export const company = {
   contact: {
     email: 'info@shanglobalization.com',
     phone: '+91 9729968734',
-    office: 'Client coordination available across global time zones',
+    office: 'Loni, Ghaziabad, Uttar Pradesh 201102, India',
     hours: 'Monday to Saturday, 9:00 AM to 6:30 PM IST',
   },
 };
@@ -175,7 +175,9 @@ export const contactReasons = [
   'Translation',
   'Transcription',
   'Data Collection',
+  'Search Engine Rating',
   'Data Labelling',
   'Box Bounding (2D, 3D), polygon',
   'Audio, Video, Text, Image Annotation',
+  'Other',
 ];
