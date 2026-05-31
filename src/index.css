@@ -830,7 +830,7 @@
   }
 
   .services-page-hero {
-    @apply relative flex min-h-[760px] overflow-hidden bg-cover bg-center px-4 pb-16 pt-44 sm:px-8 sm:pb-20 sm:pt-48 lg:px-10;
+    @apply relative flex min-h-[800px] overflow-hidden bg-cover bg-center px-4 pb-16 pt-52 sm:px-8 sm:pb-20 sm:pt-56 lg:px-10 lg:pt-60;
     margin-top: -12rem;
   }
 
@@ -1949,7 +1949,7 @@
   }
 
   .services-page-hero {
-    @apply min-h-[720px] pb-12 pt-40;
+    @apply min-h-[740px] pb-12 pt-48;
   }
 
   .services-page-hero-copy p {
