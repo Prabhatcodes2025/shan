@@ -3,32 +3,33 @@ import usePageMeta from '../hooks/usePageMeta';
 import contactHeroBg from '../assets/contact-hero-bg.jpg';
 import { company, contactReasons } from '../data/siteContent';
 
-const mapLocation = {
-  label: 'Vijay Nagar, Indore, Madhya Pradesh',
-  note: 'Use this map view as a quick area reference for meetings and project coordination.',
-  embedSrc:
-    'https://maps.google.com/maps?q=Vijay%20Nagar%20Indore%20Madhya%20Pradesh&z=13&output=embed',
-};
+const officeLocation = 'Loni, Ghaziabad, Uttar Pradesh 201102, India';
 
-const contactChannels = [
+const contactCards = [
   {
-    label: 'Email',
-    value: company.contact.email,
-    detail: 'Project briefs and quotes.',
-    href: `mailto:${company.contact.email}`,
+    label: 'Office Location',
+    value: officeLocation,
+    detail: 'Project coordination and client meetings by appointment.',
+    icon: 'pin',
   },
   {
-    label: 'Phone',
+    label: 'Phone no.',
     value: company.contact.phone,
-    detail: 'Business-hour coordination.',
+    detail: 'Speak with us during business hours.',
     href: `tel:${company.contact.phone.replace(/\s+/g, '')}`,
+    icon: 'phone',
   },
   {
-    label: 'Hours',
-    value: company.contact.hours,
-    detail: 'Responsive global support.',
+    label: 'Email address',
+    value: company.contact.email,
+    detail: 'Send project briefs, files, and pricing requests.',
+    href: `mailto:${company.contact.email}`,
+    icon: 'mail',
   },
 ];
+
+const mapEmbedSrc =
+  'https://maps.google.com/maps?q=Loni%2C%20Ghaziabad%2C%20Uttar%20Pradesh%20201102&z=13&output=embed';
 
 function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -40,187 +41,172 @@ function ContactPage() {
   };
 
   return (
-    <div className="page-frame contact-page-frame space-y-14 sm:space-y-20">
+    <div className="page-frame contact-page-frame">
       <section
-        className="contact-hero"
+        className="contact-hero contact-reference-hero"
         style={{ backgroundImage: `url(${contactHeroBg})` }}
       >
         <div className="contact-hero-overlay" />
         <div className="contact-hero-inner">
-          <div className="max-w-3xl space-y-5">
-            <span className="eyebrow">Contact Us</span>
-            <div className="space-y-4">
-              <h1 className="font-display text-4xl font-semibold leading-[1.02] text-white sm:text-6xl lg:whitespace-nowrap lg:text-7xl">
-                Let’s keep it simple.
-              </h1>
-              <p className="max-w-2xl text-sm leading-7 text-slate-200 sm:text-lg lg:whitespace-nowrap">
-                Share your project, timeline, or hiring need and we’ll respond with the next step.
-              </p>
-            </div>
+          <div className="contact-reference-hero-copy">
+            <span className="eyebrow">Contact us</span>
+            <h1>Let&apos;s discuss your next big project with us</h1>
+            <p>
+              Tell us about your translation, transcription, data collection, or annotation needs.
+              Our team will help you plan the right workflow for quality, speed, and scale.
+            </p>
           </div>
         </div>
       </section>
 
-      <section className="grid min-w-0 gap-6 sm:gap-8 lg:grid-cols-[0.86fr,1.14fr] lg:items-start">
-        <article className="glass-panel min-w-0 p-5 sm:p-8">
-          <p className="text-sm uppercase tracking-[0.28em] text-ocean-300">Direct contact</p>
-          <p className="mt-4 font-display text-3xl leading-tight text-white sm:text-4xl">Reach us in the channel that fits.</p>
-          <p className="mt-4 max-w-xl text-sm leading-7 text-slate-300 sm:text-base">
-            Email works best for briefs and quotes. Phone works best for quick coordination.
-          </p>
-
-          <div className="mt-8 grid gap-4">
-            {contactChannels.map((item) => {
-              const content = (
-                <div className="min-w-0 rounded-[22px] border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 hover:border-forest-300/30 sm:rounded-[24px] sm:p-5">
-                  <p className="text-xs uppercase tracking-[0.26em] text-slate-400">{item.label}</p>
-                  <p className="mt-3 break-words text-lg font-semibold leading-7 text-white sm:text-xl">{item.value}</p>
-                  <p className="mt-2 text-sm leading-6 text-slate-300">{item.detail}</p>
-                </div>
-              );
-
-              return item.href ? (
-                <a key={item.label} href={item.href} className="block">
-                  {content}
-                </a>
-              ) : (
-                <div key={item.label}>{content}</div>
-              );
-            })}
-          </div>
-        </article>
-
-        <div className="spotlight-border min-w-0 self-start p-[1px]">
-          <div className="rounded-[21px] bg-white/[0.03] p-5 backdrop-blur-xl sm:rounded-[27px] sm:p-8">
-            <div className="space-y-3">
-              <span className="eyebrow">Inquiry</span>
-              <h2 className="text-2xl font-semibold text-white sm:text-4xl">
-                Tell us what you need.
-              </h2>
-              <p className="max-w-2xl text-sm leading-7 text-slate-400">
-                Keep it brief. We just need the basics to guide the next step.
-              </p>
+      <section className="contact-info-strip" aria-label="Contact information">
+        {contactCards.map((item) => {
+          const card = (
+            <div className="contact-info-card">
+              <span className="contact-info-icon" aria-hidden="true">
+                <ContactIcon kind={item.icon} />
+              </span>
+              <div>
+                <p className="contact-info-label">{item.label}</p>
+                <p className="contact-info-value">{item.value}</p>
+                <p className="contact-info-detail">{item.detail}</p>
+              </div>
             </div>
+          );
 
-            <form className="mt-8 grid gap-5" onSubmit={handleSubmit}>
+          return item.href ? (
+            <a key={item.label} href={item.href} className="contact-info-link">
+              {card}
+            </a>
+          ) : (
+            <div key={item.label}>{card}</div>
+          );
+        })}
+      </section>
+
+      <section className="contact-reference-section">
+        <div className="contact-reference-intro">
+          <span className="eyebrow">Write to us</span>
+          <h2>Have a project? Send the details.</h2>
+          <p>
+            Share the basics and we will route your inquiry to the right project team. The form is
+            ideal for quotes, new project discussions, vendor support, and long-term collaboration.
+          </p>
+        </div>
+
+        <div className="contact-reference-grid">
+          <article className="contact-form-panel">
+            <form className="contact-reference-form" onSubmit={handleSubmit}>
               <div className="grid gap-5 sm:grid-cols-2">
-                <label className="grid gap-2 text-sm font-medium text-slate-200">
-                  Full Name
-                  <input required type="text" className="glass-field" placeholder="Your name" />
+                <label>
+                  <span>Full Name</span>
+                  <input required type="text" placeholder="Your name" autoComplete="name" />
                 </label>
-                <label className="grid gap-2 text-sm font-medium text-slate-200">
-                  Email Address
-                  <input
-                    required
-                    type="email"
-                    className="glass-field"
-                    placeholder="you@company.com"
-                  />
+                <label>
+                  <span>Email Address</span>
+                  <input required type="email" placeholder="you@company.com" autoComplete="email" />
                 </label>
               </div>
 
-              <label className="grid gap-2 text-sm font-medium text-slate-200">
-                Reason for Contact
-                <select className="glass-field">
-                  {contactReasons.map((reason) => (
-                    <option key={reason}>{reason}</option>
-                  ))}
-                </select>
-              </label>
+              <div className="grid gap-5 sm:grid-cols-2">
+                <label>
+                  <span>Phone Number</span>
+                  <input type="tel" placeholder="+91 00000 00000" autoComplete="tel" />
+                </label>
+                <label>
+                  <span>Service Required</span>
+                  <select defaultValue={contactReasons[0]}>
+                    {contactReasons.map((reason) => (
+                      <option key={reason}>{reason}</option>
+                    ))}
+                  </select>
+                </label>
+              </div>
 
-              <label className="grid gap-2 text-sm font-medium text-slate-200">
-                Project Details
+              <label>
+                <span>Project Details</span>
                 <textarea
                   required
-                  rows="5"
-                  className="glass-field"
-                  placeholder="Languages, timing, content type, or hiring need."
+                  rows={6}
+                  placeholder="Languages, content type, volume, timeline, and any special instructions."
                 />
               </label>
 
-              <div className="flex flex-col gap-4 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
+              <div className="contact-submit-row">
                 <button type="submit" className="btn-primary">
                   Send Inquiry
                 </button>
                 {submitted && (
-                  <p className="max-w-md text-sm leading-6 text-forest-200">
-                    Thank you. Our team will follow up shortly.
-                  </p>
+                  <p className="contact-success">Thank you. Our team will follow up shortly.</p>
                 )}
               </div>
             </form>
-          </div>
+          </article>
+
+          <aside className="contact-side-panel">
+            <p className="contact-side-kicker">Contact info</p>
+            <h3>We are ready to support your global content workflows.</h3>
+            <p>
+              Email is best for project briefs and pricing. Phone is useful for quick coordination
+              during business hours.
+            </p>
+
+            <div className="contact-side-list">
+              <div>
+                <span>Business hours</span>
+                <strong>{company.contact.hours}</strong>
+              </div>
+              <div>
+                <span>Best for</span>
+                <strong>Translation, transcription, AI data, and annotation projects</strong>
+              </div>
+            </div>
+          </aside>
         </div>
       </section>
 
-      <section className="grid min-w-0 gap-6 sm:gap-8 lg:grid-cols-[1.12fr,0.88fr] lg:items-stretch">
-        <article className="glass-panel overflow-hidden p-0">
-          <div className="border-b border-white/10 px-5 py-6 sm:px-8">
-            <p className="text-sm uppercase tracking-[0.28em] text-ocean-300">Map View</p>
-            <p className="mt-4 text-2xl font-semibold text-white sm:text-4xl">
-              A quick location preview.
-            </p>
-            <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-300">
-              {mapLocation.note}
-            </p>
-          </div>
-
-          <div className="p-3 sm:p-5">
-            <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[#08131f]">
-              <iframe
-                title={`Map of ${mapLocation.label}`}
-                src={mapLocation.embedSrc}
-                className="h-[300px] w-full sm:h-[360px]"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
-          </div>
-        </article>
-
-        <article className="glass-panel flex h-full min-w-0 flex-col justify-between p-5 sm:p-8">
-          <div>
-            <p className="text-sm uppercase tracking-[0.28em] text-forest-300">Location</p>
-            <p className="mt-4 break-words text-2xl font-semibold leading-tight text-white sm:text-4xl">{mapLocation.label}</p>
-            <p className="mt-4 text-sm leading-7 text-slate-300 sm:text-base">
-              A visible location block makes the contact page feel more complete and easier to trust.
-            </p>
-          </div>
-
-          <div className="mt-8 grid gap-3">
-            <div className="rounded-[22px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur">
-              <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400">Coordination hours</p>
-              <p className="mt-3 text-sm leading-7 text-slate-200">
-                {company.contact.hours}
-              </p>
-            </div>
-            <div className="rounded-[22px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur">
-              <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400">Best contact</p>
-              <p className="mt-3 text-sm leading-7 text-slate-200">
-                Email for briefs and quotes, or call for quick coordination during business hours.
-              </p>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <section className="cta-band">
-        <div className="relative z-10 grid gap-8 lg:grid-cols-[1fr,auto] lg:items-center">
-          <div>
-            <p className="text-sm uppercase tracking-[0.28em] text-forest-300">Prefer email?</p>
-            <p className="mt-4 max-w-xl text-3xl font-semibold leading-tight sm:text-4xl">
-              Send the brief directly and we’ll take it from there.
-            </p>
-          </div>
-          <a
-            href={`mailto:${company.contact.email}`}
-            className="inline-flex rounded-full border border-white/12 bg-white/[0.96] px-6 py-3 text-sm font-semibold text-ink-950 transition hover:-translate-y-0.5 hover:bg-white"
-          >
-            Email the Team
-          </a>
+      <section className="contact-map-section">
+        <div>
+          <span className="eyebrow">Location</span>
+          <h2>Find our office area</h2>
+          <p>{officeLocation}</p>
+        </div>
+        <div className="contact-map-frame">
+          <iframe
+            title={`Map of ${officeLocation}`}
+            src={mapEmbedSrc}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         </div>
       </section>
     </div>
+  );
+}
+
+function ContactIcon({ kind }) {
+  if (kind === 'phone') {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M6.6 3.8 9 3.2l2.1 4.9-1.4 1.2a12 12 0 0 0 5 5l1.2-1.4 4.9 2.1-.6 2.4c-.3 1.3-1.5 2.2-2.9 2.1A15.2 15.2 0 0 1 4.5 6.7c-.1-1.4.8-2.6 2.1-2.9Z" />
+      </svg>
+    );
+  }
+
+  if (kind === 'mail') {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <rect x="3.5" y="5.5" width="17" height="13" rx="2.5" />
+        <path d="m4.5 7 7.5 6 7.5-6" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M12 21s6.5-5.4 6.5-11a6.5 6.5 0 0 0-13 0c0 5.6 6.5 11 6.5 11Z" />
+      <circle cx="12" cy="10" r="2.4" />
+    </svg>
   );
 }
 

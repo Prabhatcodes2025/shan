@@ -89,7 +89,7 @@ function HomePage() {
   }, [location.pathname]);
 
   return (
-    <div className="page-frame home-page-frame space-y-20">
+    <div className="page-frame home-page-frame">
       <section className="home-hero animate-rise" style={{ backgroundImage: `url(${vrHero})` }}>
         <div className="home-hero-overlay" />
         <div className="home-hero-content">
@@ -202,7 +202,7 @@ function HomePage() {
           <div className="about-company-copy">
             <p className="text-sm font-semibold uppercase text-sky-600">About Company</p>
             <h2 className="mt-6 text-4xl font-bold leading-tight text-black sm:text-5xl">
-              Who we are?
+              Who We Are?
             </h2>
             <div className="mt-6 space-y-5 text-base font-medium leading-8 text-black">
               <p>
@@ -211,9 +211,9 @@ function HomePage() {
                 for global businesses, AI companies, and growing enterprises.
               </p>
               <p>
-                Founded in 2022 with a small freelance team, we successfully managed and delivered
-                large-scale projects with accuracy, reliability, and on-time execution, helping
-                clients build scalable and efficient AI-driven workflows.
+                Founded in 2022 with a dedicated multilingual operations team, Shan Globalization
+                has successfully delivered large-scale projects with accuracy, reliability, and
+                on-time execution.
               </p>
               <p>
                 Our core services include <strong>Translation &amp; Transcription</strong>,{' '}

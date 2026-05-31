@@ -7,6 +7,8 @@ import ServicesPage from './pages/ServicesPage';
 import ContactPage from './pages/ContactPage';
 import CareersPage from './pages/CareersPage';
 import AnnouncementPage from './pages/AnnouncementPage';
+import NdaCompliancePage from './pages/NdaCompliancePage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import AdminLoginPage from './pages/admin/AdminLoginPage';
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import AdminAnnouncementsPage from './pages/admin/AdminAnnouncementsPage';
@@ -22,6 +24,8 @@ function App() {
         <Route path="/contact-us" element={<ContactPage />} />
         <Route path="/careers" element={<CareersPage />} />
         <Route path="/announcement" element={<AnnouncementPage />} />
+        <Route path="/nda-compliance" element={<NdaCompliancePage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
       </Route>
 
       <Route path="/admin/login" element={<AdminLoginPage />} />

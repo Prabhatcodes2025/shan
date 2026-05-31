@@ -10,10 +10,10 @@ const socialLinks = [
 ];
 
 const complianceItems = [
-  'ISO 9001 Certified',
-  'ISO/IEC 27001 Certified',
-  'Privacy Policy',
-  'NDA Compliance',
+  { label: 'ISO 9001 Certified' },
+  { label: 'ISO/IEC 27001 Certified' },
+  { label: 'Privacy Policy', path: '/privacy-policy' },
+  { label: 'NDA Compliance', path: '/nda-compliance' },
 ];
 
 function Footer() {
@@ -76,14 +76,28 @@ function Footer() {
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white">Compliance</p>
             <div className="mt-4 flex flex-wrap gap-2">
-              {complianceItems.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-slate-100"
-                >
-                  {item}
-                </span>
-              ))}
+              {complianceItems.map((item) => {
+                if (item.path) {
+                  return (
+                    <Link
+                      key={item.label}
+                      to={item.path}
+                      className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-slate-100 transition hover:border-forest-300 hover:text-forest-300"
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                }
+
+                return (
+                  <span
+                    key={item.label}
+                    className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-slate-100"
+                  >
+                    {item.label}
+                  </span>
+                );
+              })}
             </div>
           </div>
         </div>

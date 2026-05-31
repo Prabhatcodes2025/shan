@@ -16,7 +16,7 @@ export const company = {
   heroStatement: 'Clear language support for growing teams.',
   contact: {
     email: 'info@shanglobalization.com',
-    phone: '+91 97299 68734',
+    phone: '+91 9729968734',
     office: 'Client coordination available across global time zones',
     hours: 'Monday to Saturday, 9:00 AM to 6:30 PM IST',
   },
@@ -172,8 +172,10 @@ export const openRoles = [
 ];
 
 export const contactReasons = [
-  'Start a localization project',
-  'Request a quote',
-  'Explore a long-term service partnership',
-  'Apply for a role or freelance opportunity',
+  'Translation',
+  'Transcription',
+  'Data Collection',
+  'Data Labelling',
+  'Box Bounding (2D, 3D), polygon',
+  'Audio, Video, Text, Image Annotation',
 ];
