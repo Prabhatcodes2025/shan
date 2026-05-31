@@ -6,38 +6,75 @@ const serviceCards = [
   {
     title: 'Translation',
     icon: 'broadcast',
+    kicker: 'Language precision',
     copy:
-      'We provide accurate multilingual translation and professional audio/video transcription services with fast delivery, quality formatting, and reliable solutions for business, media, research, and AI projects.',
+      'Context-aware multilingual translation for business, technical, digital, and customer-facing content.',
+    points: ['Terminology control', 'Human review', 'Market-ready tone'],
   },
   {
     title: 'Transcription',
     icon: 'message',
+    kicker: 'Speech to structure',
     copy:
-      'We provide accurate multilingual translation and professional audio/video transcription services with fast delivery, quality formatting, and reliable solutions for business, media, research, and AI projects.',
+      'Readable audio and video transcripts prepared for media, research, operations, and AI pipelines.',
+    points: ['Speaker labels', 'Timestamp options', 'Clean formatting'],
   },
   {
     title: 'Data Collection',
     icon: 'database',
+    kicker: 'AI-ready datasets',
     copy:
-      'We offer reliable large-scale data collection services including text, image, audio, video, and web datasets designed for AI training, machine learning, analytics, and research purposes.',
+      'Large-scale text, image, audio, video, and web datasets gathered around clear project criteria.',
+    points: ['Custom sourcing', 'Quality checks', 'Delivery control'],
   },
   {
     title: 'Search Engine Evaluation & Rating',
     icon: 'search',
+    kicker: 'Relevance quality',
     copy:
-      'We provide professional evaluation and rating services for search results, ads, maps, apps, websites, online content, and AI-generated responses to improve relevance, accuracy, quality, and user experience.',
+      'Evaluation for search results, ads, maps, apps, websites, online content, and AI responses.',
+    points: ['Rating guidelines', 'Accuracy review', 'User intent focus'],
   },
   {
     title: 'AI Training & Quality Analysis',
     icon: 'bot',
+    kicker: 'Model improvement',
     copy:
-      'We deliver AI data preparation, validation, quality analysis, and model evaluation services to improve machine learning accuracy, performance, reliability, and overall AI system efficiency.',
+      'Data preparation, validation, quality analysis, and model evaluation for stronger AI systems.',
+    points: ['Validation loops', 'Output review', 'QA reporting'],
   },
   {
     title: 'Annotation',
     icon: 'annotation',
+    kicker: 'Structured labeling',
     copy:
-      'Our expert team provides precise image, video, text, and audio annotation services including labeling, segmentation, polygon annotation, bounding boxes, and AI training data preparation.',
+      'Precise image, video, text, and audio annotation for training data that needs reliable structure.',
+    points: ['Bounding boxes', 'Segmentation', 'Text and audio tags'],
+  },
+];
+
+const serviceStats = [
+  { value: '01', label: 'Scope mapped before production' },
+  { value: '02', label: 'Specialist delivery teams assigned' },
+  { value: '03', label: 'QA checks before final handoff' },
+];
+
+const workflowSteps = [
+  {
+    title: 'Brief',
+    copy: 'We clarify content type, languages, guidelines, volume, and delivery expectations.',
+  },
+  {
+    title: 'Build',
+    copy: 'The right team runs production with shared terminology, instructions, and review gates.',
+  },
+  {
+    title: 'Refine',
+    copy: 'Outputs are checked for accuracy, formatting, consistency, and final usability.',
+  },
+  {
+    title: 'Deliver',
+    copy: 'You receive organized files, notes, and support for follow-up batches or scale-up.',
   },
 ];
 
@@ -138,19 +175,86 @@ function ServicesPage() {
         style={{ backgroundImage: `url(${servicesHeroBg})` }}
       >
         <div className="services-page-hero-inner">
-          <h1>Services</h1>
+          <div className="services-page-hero-copy">
+            <h1>Language, data, and AI quality services built for serious delivery.</h1>
+            <p>
+              Shan Globalization helps teams prepare multilingual content, speech files, training
+              data, and search-quality workflows with disciplined production and review.
+            </p>
+            <div className="services-hero-actions">
+              <Link to="/contact-us" className="btn-primary">Start a Project</Link>
+              <a href="#service-suite" className="btn-secondary">Explore Services</a>
+            </div>
+          </div>
+          <div className="services-hero-panel" aria-label="Service delivery highlights">
+            {serviceStats.map((stat) => (
+              <div key={stat.value}>
+                <strong>{stat.value}</strong>
+                <span>{stat.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="services-card-section">
+      <section id="service-suite" className="services-card-section">
+        <div className="services-section-heading">
+          <span className="eyebrow">What we do</span>
+          <h2>A focused suite for global content and AI operations.</h2>
+          <p>
+            Each service is built around clear scope, specialist execution, and final output that is
+            easy for your team to review, publish, train on, or reuse.
+          </p>
+        </div>
         <div className="services-card-grid">
-          {serviceCards.map((service) => (
+          {serviceCards.map((service, index) => (
             <article key={service.title} className="services-feature-card">
-              <ServiceIcon kind={service.icon} />
-              <h2>{service.title}</h2>
-              <p>{service.copy}</p>
+              <div className="services-card-topline">
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <ServiceIcon kind={service.icon} />
+              </div>
+              <p className="services-card-kicker">{service.kicker}</p>
+              <h3>{service.title}</h3>
+              <p className="services-card-copy">{service.copy}</p>
+              <ul>
+                {service.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="services-workflow-section">
+        <div className="services-workflow-inner">
+          <div>
+            <span className="eyebrow">Delivery method</span>
+            <h2>Premium is not decoration. It is how the work moves.</h2>
+            <div className="services-workflow-summary" aria-label="Delivery standards">
+              <div>
+                <strong>Scoped</strong>
+                <span>Clear brief before production begins</span>
+              </div>
+              <div>
+                <strong>Reviewed</strong>
+                <span>Quality checks before handoff</span>
+              </div>
+              <div>
+                <strong>Ready</strong>
+                <span>Files organized for real use</span>
+              </div>
+            </div>
+          </div>
+          <div className="services-workflow-grid">
+            {workflowSteps.map((step, index) => (
+              <article key={step.title} className="services-workflow-card">
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <h3>{step.title}</h3>
+                <p>{step.copy}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -162,8 +266,12 @@ function ServicesPage() {
           }`}
         >
           <div className="services-detail-inner">
-            <h2>{section.title}</h2>
-            <p className="services-detail-lead">{section.copy}</p>
+            <div className="services-detail-copy">
+              <span>{section.tone === 'mint' ? 'Core capability' : 'Specialized support'}</span>
+              <h2>{section.title}</h2>
+              <p className="services-detail-lead">{section.copy}</p>
+              <p className="services-detail-close">{section.close}</p>
+            </div>
 
             <ul className="services-detail-list">
               {section.items.map((item) => (
@@ -173,19 +281,17 @@ function ServicesPage() {
                 </li>
               ))}
             </ul>
-
-            <p className="services-detail-close">{section.close}</p>
           </div>
         </section>
       ))}
 
       <section className="services-cta">
-        <div className="services-cta-spark services-cta-spark-left" aria-hidden="true" />
-        <div className="services-cta-spark services-cta-spark-right" aria-hidden="true" />
-        <p>Join the success</p>
-        <h2>Let's discuss your next big project with us</h2>
-        <span>Schedule a free consultation with our team and let's make things happen.</span>
-        <Link to="/contact-us">Contact Us</Link>
+        <div className="services-cta-inner">
+          <p>Ready when the brief is real</p>
+          <h2>Bring us the files, target market, or dataset plan. We will shape the workflow.</h2>
+          <span>Get a practical scope, clean delivery structure, and a team that can scale with you.</span>
+          <Link to="/contact-us">Contact Us</Link>
+        </div>
       </section>
     </div>
   );
