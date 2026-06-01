@@ -6,6 +6,14 @@ export const SITE_CONTENT_KEY = 'main';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL?.trim() ?? '';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY?.trim() ?? '';
 
+if (import.meta.env.PROD) {
+  console.info('[Supabase config]', {
+    hasUrl: Boolean(supabaseUrl),
+    hasAnonKey: Boolean(supabaseAnonKey),
+    urlHost: supabaseUrl ? new URL(supabaseUrl).host : '',
+  });
+}
+
 export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
 export const backendMode = isSupabaseConfigured ? 'supabase' : 'local';
 export const backendLabel = isSupabaseConfigured ? 'Supabase' : 'Browser storage';
