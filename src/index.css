@@ -1781,6 +1781,10 @@
     color: rgba(123, 244, 144, 0.95);
   }
 
+  .contact-error {
+    color: rgba(253, 164, 175, 0.95);
+  }
+
   select.glass-field {
     appearance: none;
     -webkit-appearance: none;

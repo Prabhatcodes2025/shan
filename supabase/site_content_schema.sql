@@ -26,6 +26,17 @@ create table if not exists public.site_content (
   updated_at timestamptz not null default timezone('utc', now())
 );
 
+create table if not exists public.contact_enquiries (
+  id uuid primary key default gen_random_uuid(),
+  full_name text not null,
+  email text not null,
+  phone text,
+  company text,
+  reason text not null,
+  project_details text not null,
+  created_at timestamptz not null default timezone('utc', now())
+);
+
 do $$
 begin
   if not exists (
@@ -61,7 +72,12 @@ grant select on public.site_content to anon;
 grant select, insert, update on public.site_content to authenticated;
 grant all on public.site_content to service_role;
 
+grant insert on public.contact_enquiries to anon, authenticated;
+grant select on public.contact_enquiries to authenticated;
+grant all on public.contact_enquiries to service_role;
+
 alter table public.site_content enable row level security;
+alter table public.contact_enquiries enable row level security;
 
 drop policy if exists "Public can read site content" on public.site_content;
 create policy "Public can read site content"
@@ -84,6 +100,20 @@ for update
 to authenticated
 using (public.is_admin_user())
 with check (public.is_admin_user());
+
+drop policy if exists "Public can create contact enquiries" on public.contact_enquiries;
+create policy "Public can create contact enquiries"
+on public.contact_enquiries
+for insert
+to anon, authenticated
+with check (true);
+
+drop policy if exists "Approved admins can read contact enquiries" on public.contact_enquiries;
+create policy "Approved admins can read contact enquiries"
+on public.contact_enquiries
+for select
+to authenticated
+using (public.is_admin_user());
 
 insert into public.site_content (key, content)
 values (

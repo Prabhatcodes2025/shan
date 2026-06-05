@@ -2,6 +2,11 @@ import { useState } from 'react';
 import usePageMeta from '../hooks/usePageMeta';
 import contactHeroBg from '../assets/contact-hero-bg.jpg';
 import { company, contactReasons } from '../data/siteContent';
+import {
+  CONTACT_ENQUIRIES_TABLE,
+  isSupabaseConfigured,
+  supabase,
+} from '../lib/supabase';
 
 const officeLocation = company.contact.office;
 
@@ -31,13 +36,87 @@ const contactCards = [
 const mapEmbedSrc =
   'https://maps.google.com/maps?q=Loni%2C%20Ghaziabad%2C%20Uttar%20Pradesh%20201102&z=13&output=embed';
 
+const contactFormEndpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT?.trim() ?? '';
+
+function buildInquiryPayload(inquiryDetails) {
+  return {
+    full_name: inquiryDetails.fullName,
+    email: inquiryDetails.email,
+    phone: inquiryDetails.phone || null,
+    company: inquiryDetails.company || null,
+    reason: inquiryDetails.reason,
+    project_details: inquiryDetails.projectDetails,
+  };
+}
+
+async function submitContactInquiry(inquiryDetails) {
+  const payload = buildInquiryPayload(inquiryDetails);
+
+  if (contactFormEndpoint) {
+    const response = await fetch(contactFormEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ...payload,
+        to: company.contact.email,
+        subject: `Project inquiry - ${inquiryDetails.fullName}`,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Unable to send your inquiry right now.');
+    }
+
+    return;
+  }
+
+  if (isSupabaseConfigured) {
+    const { error } = await supabase
+      .from(CONTACT_ENQUIRIES_TABLE)
+      .insert(payload);
+
+    if (error) {
+      throw error;
+    }
+
+    return;
+  }
+
+  throw new Error('Contact form storage is not configured yet.');
+}
+
 function ContactPage() {
-  const [submitted, setSubmitted] = useState(false);
+  const [statusMessage, setStatusMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   usePageMeta('Contact Us');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setSubmitted(true);
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const inquiryDetails = Object.fromEntries(
+      Array.from(formData.entries()).map(([key, value]) => [key, String(value).trim()]),
+    );
+
+    setIsSubmitting(true);
+    setStatusMessage('');
+    setErrorMessage('');
+
+    try {
+      await submitContactInquiry(inquiryDetails);
+      setStatusMessage('Thank you. Your inquiry has been submitted successfully.');
+      form.reset();
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : 'Unable to submit your inquiry right now.',
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -100,29 +179,51 @@ function ContactPage() {
               <div className="grid gap-5 sm:grid-cols-2">
                 <label>
                   <span>Full Name</span>
-                  <input required type="text" placeholder="Your name" autoComplete="name" />
+                  <input
+                    required
+                    type="text"
+                    name="fullName"
+                    placeholder="Your name"
+                    autoComplete="name"
+                  />
                 </label>
                 <label>
                   <span>Email Address</span>
-                  <input required type="email" placeholder="you@company.com" autoComplete="email" />
+                  <input
+                    required
+                    type="email"
+                    name="email"
+                    placeholder="you@company.com"
+                    autoComplete="email"
+                  />
                 </label>
               </div>
 
               <div className="grid gap-5 sm:grid-cols-2">
                 <label>
                   <span>Phone Number</span>
-                  <input type="tel" placeholder="+91 00000 00000" autoComplete="tel" />
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="+91 00000 00000"
+                    autoComplete="tel"
+                  />
                 </label>
                 <label>
                   <span>Company Name <em>Optional</em></span>
-                  <input type="text" placeholder="Company or organization" autoComplete="organization" />
+                  <input
+                    type="text"
+                    name="company"
+                    placeholder="Company or organization"
+                    autoComplete="organization"
+                  />
                 </label>
               </div>
 
               <div className="grid gap-5 sm:grid-cols-2">
                 <label>
                   <span>Reason for Contacting</span>
-                  <select defaultValue={contactReasons[0]}>
+                  <select name="reason" defaultValue={contactReasons[0]}>
                     {contactReasons.map((reason) => (
                       <option key={reason}>{reason}</option>
                     ))}
@@ -134,17 +235,21 @@ function ContactPage() {
                 <span>Project Details</span>
                 <textarea
                   required
+                  name="projectDetails"
                   rows={6}
                   placeholder="Languages, content type, volume, timeline, and any special instructions."
                 />
               </label>
 
               <div className="contact-submit-row">
-                <button type="submit" className="btn-primary">
-                  Send Inquiry
+                <button type="submit" className="btn-primary" disabled={isSubmitting}>
+                  {isSubmitting ? 'Sending...' : 'Send Inquiry'}
                 </button>
-                {submitted && (
-                  <p className="contact-success">Thank you. Our team will follow up shortly.</p>
+                {statusMessage && (
+                  <p className="contact-success">{statusMessage}</p>
+                )}
+                {errorMessage && (
+                  <p className="contact-error">{errorMessage}</p>
                 )}
               </div>
             </form>

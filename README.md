@@ -95,6 +95,13 @@ When Supabase is not configured:
    - `VITE_SUPABASE_URL`
    - `VITE_SUPABASE_ANON_KEY`
 
+## Contact form
+
+The contact form submits in the background and does not open the visitor's email app.
+
+- With Supabase configured, enquiries are saved in `public.contact_enquiries`.
+- To send enquiries directly to an inbox, connect a form/email service endpoint and set `VITE_CONTACT_FORM_ENDPOINT`.
+
 ## Handover notes
 
 - Admin login route: `/admin/login`
@@ -105,5 +112,5 @@ When Supabase is not configured:
 
 ## Notes
 
-- The careers application form still opens the user email client with a prefilled message.
+- The careers application form opens the user email client with a prefilled message.
 - Placeholder business email, phone, and office text should be replaced with the client's real details.
