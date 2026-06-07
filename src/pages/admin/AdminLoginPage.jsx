@@ -14,6 +14,7 @@ function AdminLoginPage() {
     password: '',
   });
   const [errorMessage, setErrorMessage] = useState('');
+  const [isSigningIn, setIsSigningIn] = useState(false);
 
   usePageMeta('Admin Login');
 
@@ -51,10 +52,14 @@ function AdminLoginPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsSigningIn(true);
+    setErrorMessage('');
+
     const result = await login(formState);
 
     if (!result.ok) {
       setErrorMessage(result.error);
+      setIsSigningIn(false);
       return;
     }
 
@@ -62,14 +67,14 @@ function AdminLoginPage() {
   };
 
   return (
-    <div className="site-shell min-h-screen lg:h-screen lg:overflow-hidden">
-      <main className="container-shell flex min-h-screen items-center py-4 lg:h-screen lg:min-h-0">
-        <div className="grid w-full overflow-hidden rounded-[32px] border border-white/10 bg-ink-950/80 shadow-[0_36px_80px_-46px_rgba(0,0,0,0.78)] backdrop-blur-2xl lg:h-[calc(100vh-2rem)] lg:max-h-[680px] lg:grid-cols-[1.1fr,0.9fr]">
+    <div className="site-shell min-h-screen overflow-y-auto">
+      <main className="container-shell flex min-h-screen items-center py-6 sm:py-8">
+        <div className="grid w-full overflow-hidden rounded-[28px] border border-white/10 bg-ink-950/80 shadow-[0_36px_80px_-46px_rgba(0,0,0,0.78)] backdrop-blur-2xl lg:min-h-[620px] lg:grid-cols-[1.1fr,0.9fr]">
           <section className="relative overflow-hidden border-b border-white/10 bg-slate-950 lg:border-b-0 lg:border-r">
             <img
               src={globalNetwork}
               alt="Admin portal illustration"
-              className="h-56 w-full object-cover sm:h-72 lg:h-full"
+              className="h-56 w-full object-cover sm:h-72 lg:h-full lg:min-h-[620px]"
             />
             <div className="absolute inset-0 bg-gradient-to-br from-ink-950/10 via-ink-950/24 to-ink-950/50" />
           </section>
@@ -98,6 +103,7 @@ function AdminLoginPage() {
                     value={formState.username}
                     onChange={handleChange}
                     className="glass-field"
+                    autoComplete={isSupabaseConfigured ? 'email' : 'username'}
                     placeholder={
                       isSupabaseConfigured ? 'admin@company.com' : 'Enter admin username'
                     }
@@ -113,6 +119,7 @@ function AdminLoginPage() {
                     value={formState.password}
                     onChange={handleChange}
                     className="glass-field"
+                    autoComplete="current-password"
                     placeholder="Enter admin password"
                   />
                 </label>
@@ -123,8 +130,20 @@ function AdminLoginPage() {
                   </div>
                 )}
 
-                <button type="submit" className="btn-primary w-full">
-                  {isSupabaseConfigured ? 'Enter Secure Admin Portal' : 'Enter Admin Portal'}
+                <button
+                  type="submit"
+                  className="btn-primary w-full"
+                  disabled={isSigningIn}
+                  aria-busy={isSigningIn}
+                >
+                  {isSigningIn && <span className="button-spinner" aria-hidden="true" />}
+                  <span>
+                    {isSigningIn
+                      ? 'Signing in'
+                      : isSupabaseConfigured
+                        ? 'Enter Secure Admin Portal'
+                        : 'Enter Admin Portal'}
+                  </span>
                 </button>
               </form>
 

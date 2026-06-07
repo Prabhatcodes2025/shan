@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import usePageMeta from '../hooks/usePageMeta';
 import contactHeroBg from '../assets/contact-hero-bg.jpg';
 import { company, contactReasons } from '../data/siteContent';
@@ -37,6 +37,8 @@ const mapEmbedSrc =
   'https://maps.google.com/maps?q=Loni%2C%20Ghaziabad%2C%20Uttar%20Pradesh%20201102&z=13&output=embed';
 
 const contactFormEndpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT?.trim() ?? '';
+const web3FormsAccessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY?.trim() ?? '';
+const web3FormsEndpoint = 'https://api.web3forms.com/submit';
 
 function buildInquiryPayload(inquiryDetails) {
   return {
@@ -51,6 +53,7 @@ function buildInquiryPayload(inquiryDetails) {
 
 async function submitContactInquiry(inquiryDetails) {
   const payload = buildInquiryPayload(inquiryDetails);
+  const subject = `Project inquiry - ${inquiryDetails.fullName}`;
 
   if (contactFormEndpoint) {
     const response = await fetch(contactFormEndpoint, {
@@ -59,15 +62,39 @@ async function submitContactInquiry(inquiryDetails) {
       body: JSON.stringify({
         ...payload,
         to: company.contact.email,
-        subject: `Project inquiry - ${inquiryDetails.fullName}`,
+        subject,
       }),
     });
 
     if (!response.ok) {
       throw new Error('Unable to send your inquiry right now.');
     }
+  } else if (web3FormsAccessKey) {
+    const response = await fetch(web3FormsEndpoint, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        access_key: web3FormsAccessKey,
+        subject,
+        from_name: inquiryDetails.fullName,
+        name: inquiryDetails.fullName,
+        email: inquiryDetails.email,
+        phone: inquiryDetails.phone || 'Not provided',
+        company: inquiryDetails.company || 'Not provided',
+        reason: inquiryDetails.reason,
+        message: inquiryDetails.projectDetails,
+      }),
+    });
+    const result = await response.json().catch(() => null);
 
-    return;
+    if (!response.ok || result?.success === false) {
+      throw new Error(result?.message || 'Unable to send your inquiry right now.');
+    }
+  } else {
+    throw new Error('Email delivery is not configured yet.');
   }
 
   if (isSupabaseConfigured) {
@@ -78,11 +105,7 @@ async function submitContactInquiry(inquiryDetails) {
     if (error) {
       throw error;
     }
-
-    return;
   }
-
-  throw new Error('Contact form storage is not configured yet.');
 }
 
 function ContactPage() {
@@ -90,6 +113,18 @@ function ContactPage() {
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   usePageMeta('Contact Us');
+
+  useEffect(() => {
+    if (!statusMessage) {
+      return undefined;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setStatusMessage('');
+    }, 4000);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [statusMessage]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -106,7 +141,7 @@ function ContactPage() {
 
     try {
       await submitContactInquiry(inquiryDetails);
-      setStatusMessage('Thank you. Your inquiry has been submitted successfully.');
+      setStatusMessage('Thank you. Your inquiry has been emailed successfully.');
       form.reset();
     } catch (error) {
       setErrorMessage(
@@ -116,6 +151,16 @@ function ContactPage() {
       );
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const clearFormMessages = () => {
+    if (statusMessage) {
+      setStatusMessage('');
+    }
+
+    if (errorMessage) {
+      setErrorMessage('');
     }
   };
 
@@ -175,7 +220,12 @@ function ContactPage() {
 
         <div className="contact-reference-grid">
           <article className="contact-form-panel">
-            <form className="contact-reference-form" onSubmit={handleSubmit}>
+            <form
+              className="contact-reference-form"
+              onSubmit={handleSubmit}
+              onInput={clearFormMessages}
+              onInvalid={clearFormMessages}
+            >
               <div className="grid gap-5 sm:grid-cols-2">
                 <label>
                   <span>Full Name</span>
@@ -242,8 +292,15 @@ function ContactPage() {
               </label>
 
               <div className="contact-submit-row">
-                <button type="submit" className="btn-primary" disabled={isSubmitting}>
-                  {isSubmitting ? 'Sending...' : 'Send Inquiry'}
+                <button
+                  type="submit"
+                  className="btn-primary contact-submit-button"
+                  disabled={isSubmitting}
+                  aria-busy={isSubmitting}
+                  onClick={clearFormMessages}
+                >
+                  {isSubmitting && <span className="button-spinner" aria-hidden="true" />}
+                  <span>{isSubmitting ? 'Sending' : 'Send Inquiry'}</span>
                 </button>
                 {statusMessage && (
                   <p className="contact-success">{statusMessage}</p>
